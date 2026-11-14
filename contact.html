@@ -1,0 +1,19 @@
+---
+layout: default
+title: Contact
+permalink: /contact/
+description: Get in touch with Kajal Rajukale.
+---
+{% assign prof = site.data.profile %}
+<div class="page-head">
+  <p class="eyebrow reveal">Say hello</p>
+  <h1 class="reveal">Let's <span class="grad">build something</span></h1>
+  <p class="lead reveal">Open to internships, collaborations and Python / AI projects.</p>
+</div>
+<section class="contact-grid">
+  <a class="contact-card reveal" href="{{ prof.github }}"><small>GitHub</small><strong>@{{ site.github_username }}</strong></a>
+  {% if prof.email != "" %}<a class="contact-card reveal" href="mailto:{{ prof.email }}"><small>Email</small><strong>{{ prof.email }}</strong></a>{% endif %}
+  {% if prof.linkedin != "" %}<a class="contact-card reveal" href="{{ prof.linkedin }}"><small>LinkedIn</small><strong>Connect ↗</strong></a>{% endif %}
+  <a class="contact-card reveal" href="https://coderkajal245.pythonanywhere.com/"><small>Live project</small><strong>Agriculture platform ↗</strong></a>
+  <div class="contact-card reveal"><small>Location</small><strong>{{ prof.location }}</strong></div>
+</section>

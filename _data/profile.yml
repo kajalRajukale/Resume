@@ -1,0 +1,16 @@
+name: Kajal Rajukale
+role_lines:
+  - Python Developer
+  - AI App Builder
+  - Data & Streamlit Enthusiast
+  - BCA Student
+tagline: >-
+  I build practical Python apps: AI worksheet generators powered by Gemini,
+  local LLM chat with Ollama, data dashboards in Streamlit and full-stack
+  Django systems for agriculture, healthcare and schools.
+avatar: https://avatars.githubusercontent.com/u/161918624?v=4
+github: https://github.com/kajalRajukale
+location: India
+# Fill these in to show them on the Contact page (leave empty to hide):
+email: ""
+linkedin: ""

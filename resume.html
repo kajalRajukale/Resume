@@ -1,0 +1,40 @@
+---
+layout: default
+title: Resume
+permalink: /resume/
+description: Education, skills and project experience of Kajal Rajukale.
+---
+{% assign r = site.data.resume %}
+<div class="page-head">
+  <p class="eyebrow reveal">Curriculum vitae</p>
+  <h1 class="reveal"><span class="grad">{{ site.data.profile.name }}</span></h1>
+  <p class="lead reveal">{{ site.data.profile.tagline }}</p>
+  <div class="cta reveal"><button class="btn print-btn" onclick="window.print()">Print / save as PDF</button></div>
+</div>
+
+<section>
+  <div class="section-head"><h2 class="reveal">Education</h2></div>
+  <div class="timeline">
+    {% for e in r.education %}
+    <div class="tl-item reveal"><span class="when">{{ e.period }}</span><h3>{{ e.title }}</h3><p><em>{{ e.place }}</em> · {{ e.details }}</p></div>
+    {% endfor %}
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2 class="reveal">Project experience</h2></div>
+  <div class="timeline">
+    {% for t in r.timeline %}
+    <div class="tl-item reveal"><span class="when">{{ t.year }}</span><h3>{{ t.title }}</h3><p>{{ t.text }}</p></div>
+    {% endfor %}
+  </div>
+</section>
+
+<section>
+  <div class="section-head"><h2 class="reveal">Skills</h2></div>
+  <div class="skills">
+    {% for s in site.data.skills %}
+    <div class="skill reveal"><h3>{{ s.group }}</h3><ul>{% for i in s.items %}<li>{{ i }}</li>{% endfor %}</ul></div>
+    {% endfor %}
+  </div>
+</section>

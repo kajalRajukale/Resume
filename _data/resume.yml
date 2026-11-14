@@ -1,0 +1,26 @@
+education:
+  - title: Bachelor of Computer Applications (BCA)
+    place: Undergraduate studies
+    period: 2024 – present
+    details: >-
+      Coursework includes Problem Solving & Programming in C, Computer Organization &
+      Architecture, Discrete Mathematics & Statistics, and Business Entrepreneurship.
+
+timeline:
+  - year: "2026"
+    title: AI & full-stack projects
+    text: >-
+      Built Lessonleaf, an AI worksheet generator (Flask + Gemini + PDF export), a hybrid
+      Django agriculture platform with a rule-based AI advisor deployed on PythonAnywhere,
+      plus healthcare, teacher-management and voting apps in Django.
+  - year: "2025"
+    title: Streamlit & data apps
+    text: >-
+      Completed a Streamlit tutorial series (elements, data sources, multipage apps,
+      authentication, LLM chat) and built a multipage AI mini app with a weather
+      dashboard using Pandas, Matplotlib, Folium maps and text-to-speech.
+  - year: "2024"
+    title: Python, LLM & web foundations
+    text: >-
+      Started with Python, PostgreSQL and Django tutorials, built a local LLM chat app
+      with Ollama and Streamlit, and learned HTML/CSS, PHP, React and Java.

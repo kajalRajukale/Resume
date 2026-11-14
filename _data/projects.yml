@@ -1,0 +1,115 @@
+# Scanned from https://github.com/kajalRajukale (no repo has GitHub topics yet,
+# so categories come from language, frameworks and code). Tags: ai | data-science | python
+- title: Lessonleaf – AI Worksheet Generator
+  repo: ai_worksheet_generator
+  year: 2026
+  featured: true
+  tags: [ai, python]
+  stack: [Flask, Google Gemini, SQLite, PDF export, pytest]
+  desc: >-
+    Generates classroom worksheets with Gemini from subject, grade, topic and difficulty.
+    Validates structured AI output, stores a searchable SQLite library, and exports
+    separate student/teacher PDFs, including Hindi and Marathi text shaping.
+
+- title: Hybrid Agriculture Platform
+  repo: Agriculture_Project_on_PythonAnywhere
+  demo: https://coderkajal245.pythonanywhere.com/
+  year: 2026
+  featured: true
+  tags: [ai, data-science, python]
+  stack: [Django, REST API, Rule-based AI, PythonAnywhere]
+  desc: >-
+    Django app combining a REST API and HTML frontend for farmers, crops, soil and water
+    records. An explainable AI engine suggests soil and irrigation actions from pH and
+    moisture data. Deployed live on PythonAnywhere.
+  more: [Agriculture_Project, Field-work-project-agriculture-pr]
+
+- title: Local LLM Chat with Ollama
+  repo: course-llm-with-python
+  year: 2024
+  featured: true
+  tags: [ai, python]
+  stack: [Ollama, Streamlit, Codespaces]
+  desc: >-
+    Streaming chat UI over locally hosted LLMs. Pick any installed Ollama model and chat
+    with full message history, runnable in GitHub Codespaces with setup scripts.
+
+- title: AI Mini App – Quiz & Weather Dashboard
+  repo: Streamlit_App_SumatiBalwan
+  year: 2025
+  featured: true
+  tags: [ai, data-science, python]
+  stack: [Streamlit, Pandas, Matplotlib, Folium, gTTS]
+  desc: >-
+    Multipage Streamlit app with a quiz and a weather dashboard: interactive maps,
+    hourly and 7-day forecasts charted with Pandas/Matplotlib, and voice read-outs.
+
+- title: Streamlit LLM & Chat
+  repo: Streamlit_Tutorial_LLM-and-Chat
+  year: 2025
+  tags: [ai, python]
+  stack: [Streamlit, Chat elements]
+  desc: Building conversational chat interfaces for LLMs with Streamlit's chat components.
+
+- title: Streamlit Tutorial Series
+  repo: Streamlit_Tutorial__DataSources
+  year: 2025
+  tags: [data-science, python]
+  stack: [Streamlit, Data sources, Multipage, Auth]
+  desc: >-
+    Hands-on series covering data sources, UI elements, execution flow, configuration,
+    multipage apps and authentication for Python data apps.
+  more: [Streamlit_Tutorial__Elements, Streamlit_Tutorial_Execution_Flow, Streamlit_Tutorial_Configuration, Streamlit_Tutorial_Multipage_App, Streamlit_Tutorial_Authentication]
+
+- title: Streamlit Starter Apps
+  repo: Streamlit_App_Learning-Streamlit
+  year: 2025
+  tags: [data-science, python]
+  stack: [Streamlit]
+  desc: First Streamlit experiments, from hello-world to a TODO list and a mini quiz.
+  more: [Streamlit_App_Hello, Streamlit_App_TODO, Streamlit_App_MiniQuizz]
+
+- title: Anaconda Environment Setup
+  repo: Anacanda_Navigetor
+  year: 2025
+  tags: [data-science, python]
+  stack: [Anaconda, Conda environments]
+  desc: Reproducible conda environment for data-science work with Anaconda Navigator.
+
+- title: Python & PostgreSQL
+  repo: learning-python-and-postgres
+  year: 2024
+  tags: [data-science, python]
+  stack: [Python, PostgreSQL]
+  desc: Connecting Python scripts to a PostgreSQL database and querying data.
+
+- title: Teacher Management System
+  repo: teacher_management_app
+  year: 2026
+  tags: [python]
+  stack: [Django, JSON API, SQLite]
+  desc: >-
+    Manage teachers, schools, courses and attendance through a dashboard UI and a JSON
+    API with full CRUD endpoints.
+
+- title: Healthcare Field-Work Project
+  repo: Django_Healthcare
+  year: 2026
+  tags: [python]
+  stack: [Django, HTML/CSS, JavaScript]
+  desc: Django web app built as a healthcare field-work project.
+
+- title: Voting & Appointments App
+  repo: Voting_system_app
+  year: 2026
+  tags: [python]
+  stack: [Django, SQLite, just]
+  desc: Multi-app Django project with voting, appointments and blog modules.
+
+- title: Django REST Framework
+  repo: Django-REST-Framework-Tutorial
+  year: 2026
+  tags: [python]
+  stack: [Django REST Framework, API]
+  desc: Building browsable REST APIs with serializers, viewsets and a snippets dashboard.
+  more: [Learning-Django-REST-Framework, Django_Tutorial, Django-Tutorial_Create-a-Student-App]

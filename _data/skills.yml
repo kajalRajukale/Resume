@@ -1,0 +1,10 @@
+- group: AI & LLMs
+  items: [Google Gemini API, Ollama, Prompt design, Rule-based AI engines, LLM chat UIs]
+- group: Data Science
+  items: [Pandas, Matplotlib, Streamlit, Folium maps, Anaconda, PostgreSQL, SQLite]
+- group: Python Backend
+  items: [Python 3.12, Django, Django REST Framework, Flask, REST APIs, pytest]
+- group: Frontend
+  items: [HTML, CSS, JavaScript, React basics, Responsive design]
+- group: Tools
+  items: [Git & GitHub, GitHub Codespaces, VS Code, PythonAnywhere, just, Azure]

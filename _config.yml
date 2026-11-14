@@ -1,0 +1,17 @@
+title: Kajal Rajukale
+description: Python developer exploring AI, data apps and the web. Projects built with Django, Flask, Streamlit, Gemini and local LLMs.
+url: https://kajalrajukale.github.io
+baseurl: /Resume
+lang: en
+
+github_username: kajalRajukale
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

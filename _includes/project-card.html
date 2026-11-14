@@ -1,0 +1,19 @@
+{% assign p = include.p %}
+<article class="card reveal" data-tags="{{ p.tags | join: ' ' }}">
+  <div class="card-top">
+    <span class="year">{{ p.year }}</span>
+    <div class="tags">{% for t in p.tags %}<span class="tag tag-{{ t }}">{{ t | replace: '-', ' ' }}</span>{% endfor %}</div>
+  </div>
+  <h3>{{ p.title }}</h3>
+  <p>{{ p.desc }}</p>
+  <ul class="stack">{% for s in p.stack %}<li>{{ s }}</li>{% endfor %}</ul>
+  <div class="card-links">
+    <a href="https://github.com/{{ site.github_username }}/{{ p.repo }}">Code ↗</a>
+    {% if p.demo %}<a class="demo" href="{{ p.demo }}">Live demo ↗</a>{% endif %}
+  </div>
+  {% if p.more %}
+  <details class="more"><summary>{{ p.more.size }} related repos</summary>
+    <ul>{% for r in p.more %}<li><a href="https://github.com/{{ site.github_username }}/{{ r }}">{{ r | replace: '_', ' ' }}</a></li>{% endfor %}</ul>
+  </details>
+  {% endif %}
+</article>
