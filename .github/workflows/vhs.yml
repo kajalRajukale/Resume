@@ -1,0 +1,31 @@
+name: Render VHS demos
+
+on:
+  push:
+    branches: [main]
+    paths: ["vhs/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tools used inside the tapes
+        run: |
+          sudo apt-get update -q && sudo apt-get install -yq tree bat
+          sudo ln -sf /usr/bin/batcat /usr/local/bin/bat
+      - uses: charmbracelet/vhs-action@v2   # no `path`: installs vhs, ttyd, ffmpeg + fonts only
+        with:
+          install-fonts: true
+      - name: Render all tapes
+        run: for t in vhs/[!_]*.tape; do vhs "$t"; done
+      - name: Commit videos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/vhs
+          git diff --cached --quiet || { git commit -m "Render VHS demos"; git push; }

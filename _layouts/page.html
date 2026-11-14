@@ -1,0 +1,9 @@
+---
+layout: default
+---
+<div class="page-head">
+  {% if page.eyebrow %}<p class="eyebrow reveal">{{ page.eyebrow }}</p>{% endif %}
+  <h1 class="reveal">{{ page.heading | default: page.title }}</h1>
+  {% if page.lead %}<p class="lead reveal">{{ page.lead }}</p>{% endif %}
+</div>
+{{ content }}

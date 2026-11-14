@@ -1,0 +1,9 @@
+{% comment %} Terminal recording rendered by VHS. include.name = file base name {% endcomment %}
+<figure class="term-video">
+  <video autoplay muted loop playsinline preload="none"
+         poster="{{ '/assets/vhs/' | append: include.name | append: '.png' | relative_url }}"
+         aria-label="Terminal demo: {{ include.title | default: include.name }}">
+    <source src="{{ '/assets/vhs/' | append: include.name | append: '.webm' | relative_url }}" type="video/webm">
+    <img src="{{ '/assets/vhs/' | append: include.name | append: '.gif' | relative_url }}" alt="Terminal demo: {{ include.title | default: include.name }}" loading="lazy">
+  </video>
+</figure>

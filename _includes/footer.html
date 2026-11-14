@@ -1,0 +1,7 @@
+{% assign p = site.data.resume.profile %}
+<footer class="footer">
+  <p><span class="mono">$ echo "thanks for visiting"</span></p>
+  <p>© {{ site.time | date: "%Y" }} {{ p.name }} · Built with Jekyll &amp; GitHub Pages ·
+    <a href="https://github.com/{{ p.github }}">GitHub</a> ·
+    <a href="{{ '/feed.xml' | relative_url }}">Feed</a></p>
+</footer>

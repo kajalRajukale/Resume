@@ -1,26 +1,65 @@
+# Values starting with "TODO" are hidden on the site until you replace them.
+profile:
+  name: Kajal Rajukale
+  title: Python Developer · AI & Data Apps
+  roles: [Python Developer, AI App Builder, Data & Streamlit Enthusiast, Django Developer]
+  tagline: >-
+    I build practical Python apps: an AI worksheet generator powered by Gemini, local LLM
+    chat with Ollama, data dashboards in Streamlit and full-stack Django systems for
+    agriculture, healthcare and elections.
+  avatar: /assets/img/avatar.webp
+  github: kajalRajukale
+  location: "TODO: fill in"
+  email: "TODO: fill in"
+  linkedin: "TODO: fill in (full URL)"
+
+summary: >-
+  BCA student who learns by shipping. My GitHub holds 46 public repositories, from first
+  Python and SQL scripts to a live Django agriculture platform with an explainable AI
+  advisor and a Gemini-powered worksheet generator with tests and multilingual PDF export.
+
+focus:
+  - icon: "🐍"
+    title: Python
+    text: Django, Django REST Framework, Flask and Streamlit apps with SQLite and PostgreSQL.
+  - icon: "🤖"
+    title: AI
+    text: LLM apps with Google Gemini and local models through Ollama, plus rule-based advisors.
+  - icon: "📊"
+    title: Data Science
+    text: Pandas, Matplotlib and Folium dashboards; Anaconda environments for analysis work.
+
+experience: []   # TODO: fill in - e.g. { role, company, start, end, highlights: [] }
+
 education:
-  - title: Bachelor of Computer Applications (BCA)
-    place: Undergraduate studies
-    period: 2024 – present
+  - degree: Bachelor of Computer Applications (BCA)
+    school: "TODO: fill in (college / university)"
+    start: "TODO: fill in"
+    end: "TODO: fill in"
     details: >-
       Coursework includes Problem Solving & Programming in C, Computer Organization &
       Architecture, Discrete Mathematics & Statistics, and Business Entrepreneurship.
 
+certifications: []   # TODO: fill in - e.g. { name, issuer, year, url }
+
+languages: []        # TODO: fill in - e.g. { name: English, level: Fluent }
+
+# Year-by-year project history, taken from repository activity on GitHub.
 timeline:
   - year: "2026"
     title: AI & full-stack projects
     text: >-
-      Built Lessonleaf, an AI worksheet generator (Flask + Gemini + PDF export), a hybrid
-      Django agriculture platform with a rule-based AI advisor deployed on PythonAnywhere,
-      plus healthcare, teacher-management and voting apps in Django.
+      Built Lessonleaf (Flask + Gemini + PDF export), a hybrid Django agriculture platform
+      with a rule-based AI advisor deployed on PythonAnywhere, a hospital portal, a
+      teacher-management app and an online voting system.
   - year: "2025"
     title: Streamlit & data apps
     text: >-
-      Completed a Streamlit tutorial series (elements, data sources, multipage apps,
-      authentication, LLM chat) and built a multipage AI mini app with a weather
-      dashboard using Pandas, Matplotlib, Folium maps and text-to-speech.
+      Worked through a Streamlit series (elements, data sources, multipage apps,
+      authentication, LLM chat) and built a weather dashboard with Pandas, Matplotlib,
+      Folium maps and text-to-speech.
   - year: "2024"
     title: Python, LLM & web foundations
     text: >-
-      Started with Python, PostgreSQL and Django tutorials, built a local LLM chat app
-      with Ollama and Streamlit, and learned HTML/CSS, PHP, React and Java.
+      Started with Python, PostgreSQL and Django, built a local LLM chat app with Ollama
+      and Streamlit, and learned HTML/CSS, PHP, React and Java.

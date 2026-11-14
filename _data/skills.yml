@@ -1,10 +1,34 @@
-- group: AI & LLMs
-  items: [Google Gemini API, Ollama, Prompt design, Rule-based AI engines, LLM chat UIs]
-- group: Data Science
-  items: [Pandas, Matplotlib, Streamlit, Folium maps, Anaconda, PostgreSQL, SQLite]
+# level (0-100) is estimated from how many repos use the skill and how deeply.
+# TODO: adjust levels to your own assessment.
 - group: Python Backend
-  items: [Python 3.12, Django, Django REST Framework, Flask, REST APIs, pytest]
+  items:
+    - { name: Python, level: 85, icon: python/python-original }
+    - { name: Django, level: 80, icon: django/django-plain }
+    - { name: Django REST Framework, level: 65, icon: djangorest/djangorest-original }
+    - { name: Flask, level: 60, icon: flask/flask-original }
+- group: AI & LLMs
+  items:
+    - { name: Google Gemini API, level: 60, icon: googlecloud/googlecloud-original }
+    - { name: Ollama / local LLMs, level: 55 }
+    - { name: Prompt design, level: 60 }
+- group: Data Science
+  items:
+    - { name: Streamlit, level: 75, icon: streamlit/streamlit-original }
+    - { name: Pandas, level: 55, icon: pandas/pandas-original }
+    - { name: Matplotlib, level: 50, icon: matplotlib/matplotlib-original }
+    - { name: Anaconda, level: 45, icon: anaconda/anaconda-original }
+- group: Databases
+  items:
+    - { name: SQLite, level: 70, icon: sqlite/sqlite-original }
+    - { name: PostgreSQL, level: 45, icon: postgresql/postgresql-original }
 - group: Frontend
-  items: [HTML, CSS, JavaScript, React basics, Responsive design]
+  items:
+    - { name: HTML, level: 80, icon: html5/html5-original }
+    - { name: CSS, level: 75, icon: css3/css3-original }
+    - { name: JavaScript, level: 55, icon: javascript/javascript-original }
+    - { name: React, level: 35, icon: react/react-original }
 - group: Tools
-  items: [Git & GitHub, GitHub Codespaces, VS Code, PythonAnywhere, just, Azure]
+  items:
+    - { name: Git & GitHub, level: 75, icon: git/git-original }
+    - { name: VS Code, level: 80, icon: vscode/vscode-original }
+    - { name: PythonAnywhere, level: 55, icon: python/python-original }

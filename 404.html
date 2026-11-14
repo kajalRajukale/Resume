@@ -2,8 +2,15 @@
 layout: default
 title: Not found
 permalink: /404.html
+sitemap: false
 ---
-<div class="page-head" style="text-align:center">
-  <h1><span class="grad">404</span></h1>
-  <p class="lead" style="margin:auto">This page wandered off. <a href="{{ '/' | relative_url }}">Back home →</a></p>
-</div>
+<section class="err">
+  <pre class="term reveal" aria-label="Page not found"><code><span class="ps">kajal@portfolio ~ $</span> cd <span class="path">/missing-page</span>
+bash: cd: no such file or directory
+<span class="ps">kajal@portfolio ~ $</span> python -c "import page"
+ModuleNotFoundError: No module named 'page'
+<span class="ps">kajal@portfolio ~ $</span> echo $?
+404
+<span class="ps">kajal@portfolio ~ $</span> <span class="cursor">▍</span></code></pre>
+  <p class="reveal"><a class="btn primary" href="{{ '/' | relative_url }}">cd ~ (home) →</a></p>
+</section>

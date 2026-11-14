@@ -1,19 +1,27 @@
 ---
-layout: default
+layout: page
 title: Contact
 permalink: /contact/
+eyebrow: "$ ping kajal"
+heading: Let's build something
+lead: Open to internships, collaborations and Python / AI projects.
 description: Get in touch with Kajal Rajukale.
 ---
-{% assign prof = site.data.profile %}
-<div class="page-head">
-  <p class="eyebrow reveal">Say hello</p>
-  <h1 class="reveal">Let's <span class="grad">build something</span></h1>
-  <p class="lead reveal">Open to internships, collaborations and Python / AI projects.</p>
-</div>
+{% assign p = site.data.resume.profile %}
 <section class="contact-grid">
-  <a class="contact-card reveal" href="{{ prof.github }}"><small>GitHub</small><strong>@{{ site.github_username }}</strong></a>
-  {% if prof.email != "" %}<a class="contact-card reveal" href="mailto:{{ prof.email }}"><small>Email</small><strong>{{ prof.email }}</strong></a>{% endif %}
-  {% if prof.linkedin != "" %}<a class="contact-card reveal" href="{{ prof.linkedin }}"><small>LinkedIn</small><strong>Connect ↗</strong></a>{% endif %}
+  <a class="contact-card reveal" href="https://github.com/{{ p.github }}"><small>GitHub</small><strong>@{{ p.github }}</strong></a>
+  {% unless p.email contains "TODO" %}<a class="contact-card reveal" href="mailto:{{ p.email }}"><small>Email</small><strong>{{ p.email }}</strong></a>{% endunless %}
+  {% unless p.linkedin contains "TODO" %}<a class="contact-card reveal" href="{{ p.linkedin }}"><small>LinkedIn</small><strong>Connect ↗</strong></a>{% endunless %}
   <a class="contact-card reveal" href="https://coderkajal245.pythonanywhere.com/"><small>Live project</small><strong>Agriculture platform ↗</strong></a>
-  <div class="contact-card reveal"><small>Location</small><strong>{{ prof.location }}</strong></div>
+  {% unless p.location contains "TODO" %}<div class="contact-card reveal"><small>Location</small><strong>{{ p.location }}</strong></div>{% endunless %}
 </section>
+{% if site.formspree_id != "" %}
+<section>
+  <form class="contact-form reveal" action="https://formspree.io/f/{{ site.formspree_id }}" method="POST">
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Email<input name="email" type="email" required autocomplete="email"></label>
+    <label>Message<textarea name="message" rows="5" required></textarea></label>
+    <button class="btn primary" type="submit">Send message</button>
+  </form>
+</section>
+{% endif %}

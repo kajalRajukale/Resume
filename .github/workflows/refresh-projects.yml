@@ -1,0 +1,33 @@
+name: Refresh project data
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/fetch_projects.py
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: refresh-projects
+          title: "Refresh project data from GitHub"
+          commit-message: "Refresh project data from GitHub"
+          body: Automated weekly run of `scripts/fetch_projects.py`. Review scores and new repos before merging.
+          add-paths: |
+            _data/projects.yml
+            _data/github.yml
+            _projects/*

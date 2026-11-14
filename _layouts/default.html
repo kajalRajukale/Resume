@@ -1,35 +1,44 @@
 <!doctype html>
-<html lang="{{ site.lang }}">
+<html lang="{{ site.lang }}" data-theme="{{ site.theme_mode }}"{% unless site.animations %} data-motion="off"{% endunless %}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // set theme before paint: saved choice > site default > system
+    (function () {
+      var d = document.documentElement, mode = d.dataset.theme, saved;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      if (saved) mode = saved;
+      else if (mode === 'auto') mode = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      d.dataset.theme = mode;
+    })();
+  </script>
   {% seo %}
+  {% feed_meta %}
+  {% assign p = site.data.resume.profile %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org", "@type": "Person",
+    "name": {{ p.name | jsonify }}, "jobTitle": {{ p.title | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }},
+    "image": {{ p.avatar | absolute_url | jsonify }},
+    "sameAs": [{{ "https://github.com/" | append: p.github | jsonify }}{% unless p.linkedin contains "TODO" %}, {{ p.linkedin | jsonify }}{% endunless %}],
+    "knowsAbout": ["Python", "Artificial Intelligence", "Data Science", "Django", "Streamlit"]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  <link rel="icon" href="{{ site.data.profile.avatar }}">
+  <link rel="icon" href="{{ p.avatar | relative_url }}" type="image/webp">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-
-  <header class="nav">
-    <a class="brand" href="{{ '/' | relative_url }}">kajal<span>.dev</span></a>
-    <nav>
-      {% assign links = "/|Home,/projects/|Projects,/resume/|Resume,/contact/|Contact" | split: "," %}
-      {% for l in links %}{% assign p = l | split: "|" %}
-      <a href="{{ p[0] | relative_url }}" {% if page.url == p[0] %}aria-current="page"{% endif %}>{{ p[1] }}</a>
-      {% endfor %}
-    </nav>
-  </header>
-
-  <main>{{ content }}</main>
-
-  <footer class="footer">
-    <p>© {{ site.time | date: "%Y" }} {{ site.data.profile.name }} · Built with Jekyll on GitHub Pages ·
-      <a href="{{ site.data.profile.github }}">GitHub</a></p>
-  </footer>
-
+  {% include header.html %}
+  <main id="main">{{ content }}</main>
+  {% include footer.html %}
+  <button class="to-top" type="button" aria-label="Back to top" hidden>↑</button>
   <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
 </body>
 </html>

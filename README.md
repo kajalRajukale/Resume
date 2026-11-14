@@ -1,123 +1,162 @@
 # Resume & Portfolio Website — kajalRajukale
- 
-A modern, animated resume and portfolio website built with **Jekyll** and hosted on **GitHub Pages**.
-It presents the profile, skills, experience and the most interesting **Python, AI and Data Science** projects
+
+A modern, animated resume and portfolio website built with **Jekyll** and hosted on **GitHub Pages**:
+**<https://kajalrajukale.github.io/Resume/>**
+
+It presents the profile, skills, timeline and the most interesting **Python, AI and Data Science** projects
 from [github.com/kajalRajukale](https://github.com/kajalRajukale), including terminal demo videos recorded with **VHS**.
- 
+
 ---
- 
+
 ## Table of Contents
- 
+
 - [Purpose](#purpose)
+- [Theme choice](#theme-choice)
 - [Tools & Technologies](#tools--technologies)
 - [Project Structure](#project-structure)
 - [Getting Started (Local Development)](#getting-started-local-development)
 - [Working with Jekyll](#working-with-jekyll)
 - [Deploying with GitHub Pages](#deploying-with-github-pages)
 - [Editing Content](#editing-content)
+- [Project Discovery & Scoring](#project-discovery--scoring)
+- [Terminal Videos with VHS](#terminal-videos-with-vhs)
 - [Extending the Site](#extending-the-site)
 - [Configuration](#configuration)
-- [Terminal Videos with VHS](#terminal-videos-with-vhs)
 - [Troubleshooting](#troubleshooting)
+
 ---
- 
+
 ## Purpose
- 
+
 This website serves as:
- 
-- **Online resume**: profile, experience, education, skills and a downloadable PDF resume
-- **Project portfolio**: GitHub repositories tagged `python`, `ai`, `data-science`, `machine-learning` and related topics, selected and ranked automatically
+
+- **Online resume**: profile, timeline, education, skills and a downloadable PDF resume
+- **Project portfolio**: Python / AI / data-science repositories, selected and ranked automatically, each with its own detail page
 - **Live showcase**: short terminal recordings that show the projects running
-- **Single point of contact**: links to GitHub, LinkedIn and a contact form
+- **Single point of contact**: links to GitHub, LinkedIn, email and an optional contact form
+
 All content is **data-driven**: you edit YAML files, not HTML, and the site rebuilds automatically on every push.
- 
+
 ---
- 
+
+## Theme choice
+
+| Option | Pros | Cons |
+|---|---|---|
+| [al-folio](https://github.com/alshedivat/al-folio) | Feature-rich, popular for CVs | Academic look (publications, BibTeX), heavy build (ImageMagick, many plugins), hard to make "yours" |
+| [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) | Polished, dark mode, good SEO | Built for blogs: sidebar + posts layout, no portfolio/resume pages, little motion |
+| **Custom lightweight theme** ✅ | Exactly the pages needed, terminal aesthetic, ~10 KB JS, no frameworks, full control over animation | Maintained here instead of upstream |
+
+**Chosen: custom theme.** Both off-the-shelf themes would need heavy overriding to become a resume + portfolio with
+terminal demos, and they'd still look generic. The custom theme is a dark "developer/terminal" design
+(prompt-style headings, terminal grid, VHS videos) with a light-mode toggle, built from 3 layouts, 5 includes,
+one CSS file and one small JS file.
+
+---
+
 ## Tools & Technologies
- 
+
 | Tool | Purpose |
 |---|---|
-| [Jekyll](https://jekyllrb.com/) | Static site generator (Ruby) that turns Markdown, YAML and Liquid templates into HTML |
-| [GitHub Pages](https://pages.github.com/) | Free hosting for the generated site |
-| [GitHub Actions](https://docs.github.com/actions) | CI/CD: builds the site, renders the VHS videos, refreshes project data |
+| [Jekyll 4](https://jekyllrb.com/) | Static site generator (Ruby) that turns HTML/Markdown, YAML and Liquid templates into HTML |
+| [GitHub Pages](https://pages.github.com/) + [GitHub Actions](https://docs.github.com/actions) | Build, link-check and deploy on every push; render VHS videos; weekly project refresh |
 | [Liquid](https://shopify.github.io/liquid/) | Template language used in layouts and includes |
-| SCSS | Styling, compiled by Jekyll |
-| [AOS](https://michalsnik.github.io/aos/) / IntersectionObserver | Scroll-reveal animations |
-| [VHS](https://github.com/charmbracelet/vhs) | Records terminal sessions from `.tape` scripts as GIF/WebM |
-| [GitHub CLI (`gh`)](https://cli.github.com/) | Fetches repository data for the projects section |
-| Python 3 | `scripts/fetch_projects.py`, which builds `_data/projects.yml` |
+| Plain CSS + IntersectionObserver | Styling, scroll-reveal, counters, skill bars, card tilt, parallax, page transitions (View Transitions API) |
+| [VHS](https://github.com/charmbracelet/vhs) | Records terminal sessions from `.tape` scripts as WebM/GIF/PNG |
+| [GitHub CLI (`gh`)](https://cli.github.com/) + Python 3 | `scripts/fetch_projects.py` discovers, analyses and scores repositories |
 | Jekyll plugins | `jekyll-seo-tag`, `jekyll-sitemap`, `jekyll-feed` |
 | [html-proofer](https://github.com/gjtorikian/html-proofer) | Checks the built site for broken links and images |
- 
+| [just](https://github.com/casey/just) | Local task runner (`just serve`, `just vhs`, `just pdf`, …) |
+| [Devicon](https://devicon.dev/) | Tech-stack logos on the Skills page (CDN) |
+
 ---
- 
+
 ## Project Structure
- 
+
 ```text
 .
-├── _config.yml              # Global site configuration
+├── _config.yml              # Global site configuration + feature switches
 ├── _data/                   # All editable content (YAML)
-│   ├── resume.yml           # Profile, experience, education, certifications
-│   ├── skills.yml           # Skill groups and levels
-│   ├── projects.yml         # Generated by scripts/fetch_projects.py
+│   ├── resume.yml           # Profile, summary, focus, experience, education, certifications, languages, timeline
+│   ├── skills.yml           # Skill groups with levels and logos
+│   ├── projects.yml         # Generated by scripts/fetch_projects.py (manual edits are kept)
+│   ├── github.yml           # Account stats (generated)
 │   └── navigation.yml       # Main menu
-├── _projects/               # One Markdown file per project detail page
-├── _layouts/                # Page templates (default, page, project, resume)
-├── _includes/               # Reusable components (header, footer, project-card, video)
-├── _sass/                   # SCSS partials (variables, components, animations)
+├── _projects/               # One file per project detail page (stub; content comes from projects.yml)
+├── _layouts/                # default, page, project
+├── _includes/               # header, footer, project-card, video
 ├── assets/
-│   ├── css/main.scss        # Stylesheet entry point
-│   ├── js/                  # Animations, theme toggle, project filter
-│   ├── img/                 # Images, OG image, project screenshots
-│   ├── vhs/                 # Rendered terminal videos (.webm, .gif, posters)
-│   └── resume.pdf           # Downloadable resume
-├── vhs/                     # VHS .tape source scripts
+│   ├── css/main.css         # All styles (tokens, components, animations, print)
+│   ├── js/main.js           # Theme toggle, menu, filters/search, reveal, tilt, parallax, video lazy-play
+│   ├── img/avatar.webp      # Optimised avatar
+│   ├── vhs/                 # Rendered terminal videos (.webm, .gif, .png posters)
+│   └── resume.pdf           # Downloadable resume (`just pdf`)
+├── vhs/                     # VHS .tape sources (_style.tape = shared look)
 ├── scripts/
-│   └── fetch_projects.py    # GitHub repo discovery and scoring
+│   ├── fetch_projects.py    # GitHub repo discovery and scoring
+│   └── requirements.txt
 ├── .github/workflows/
-│   ├── pages.yml            # Build and deploy to GitHub Pages
-│   ├── vhs.yml              # Render .tape files to videos
-│   └── refresh-projects.yml # Weekly project data refresh (optional)
-├── index.html               # Home page
-├── about.md, skills.md, projects.md, demos.md, resume.md, contact.md, 404.html
-├── Gemfile                  # Ruby dependencies
+│   ├── pages.yml            # Build, link-check, deploy to GitHub Pages
+│   ├── vhs.yml              # Render .tape files to videos and commit them
+│   └── refresh-projects.yml # Weekly project data refresh → pull request
+├── index.html, about.md, skills.html, projects.html, demos.html, resume.html, contact.html, 404.html
+├── justfile                 # Local tasks
+├── Gemfile / Gemfile.lock   # Ruby dependencies
+├── PROMPT.md                # The build brief for this site
 └── README.md
 ```
- 
+
 > **Naming convention:** folders that start with `_` are processed by Jekyll and are **not** copied to the output as-is.
 > Everything else (such as `assets/`) is copied into `_site/`.
- 
+
 ---
- 
+
 ## Getting Started (Local Development)
- 
+
 ### Prerequisites
- 
+
 - **Ruby** ≥ 3.1 with **Bundler** (`gem install bundler`)
 - **Git**
-- *Optional:* Python 3.10+, GitHub CLI (`gh`), VHS (`brew install vhs` or `go install github.com/charmbracelet/vhs@latest`)
+- *Optional:* Python 3.10+ and GitHub CLI (`gh`) for project discovery, VHS (`brew install vhs`) for videos,
+  `just` (`brew install just`), Google Chrome for `just pdf`
+
 ### Install and run
- 
+
 ```bash
-git clone https://github.com/kajalRajukale/kajalRajukale.github.io.git
-cd kajalRajukale.github.io
- 
-bundle install                       # install Jekyll and plugins
-bundle exec jekyll serve --livereload
+git clone https://github.com/kajalRajukale/Resume.git
+cd Resume
+
+bundle install
+bundle exec jekyll serve --livereload     # or: just serve
 ```
- 
-Open <http://localhost:4000>. Pages reload automatically when you save a file.
- 
+
+Open <http://localhost:4000/Resume/>. Pages reload automatically when you save a file.
+
 > **Note:** Changes to `_config.yml` are **not** picked up by live reload. Restart `jekyll serve` after editing it.
- 
+
+### Useful commands
+
+| Command | What it does |
+|---|---|
+| `just` | List all recipes |
+| `just install` | `bundle install` |
+| `just serve` | Dev server with live reload, opens the browser |
+| `just build` | Production build into `_site/` |
+| `just run` | Build, then serve the production build without rebuilding (as deployed) |
+| `just open` | Open <http://localhost:4000/Resume/> |
+| `just clean` | Remove `_site/` and caches |
+| `PORT=4010 just serve` | Use another port (works for `serve`, `run`, `open`) |
+| `just check` | Build + html-proofer (internal links and images) |
+| `just projects` | Re-scan GitHub and update project data |
+| `just vhs` / `just tape intro` | Render all tapes / one tape |
+| `just pdf` | Print the resume page to `assets/resume.pdf` |
+
 ---
- 
+
 ## Working with Jekyll
- 
-### How Jekyll builds the site
- 
+
 ```text
-Markdown / HTML  +  Front Matter  +  _data/*.yml
+HTML / Markdown  +  Front Matter  +  _data/*.yml
               │
               ▼
      Layouts (_layouts) + Includes (_includes) + Liquid
@@ -125,329 +164,210 @@ Markdown / HTML  +  Front Matter  +  _data/*.yml
               ▼
           _site/   ← static HTML, CSS and JS ready to host
 ```
- 
-### Front matter
- 
-Every page starts with a YAML block that tells Jekyll how to render it:
- 
-```markdown
----
-layout: page
-title: About Me
-permalink: /about/
-description: Short text for SEO and social previews
----
- 
-Your **Markdown** content goes here.
-```
- 
-### Using data in templates
- 
-Content in `_data/` is available as `site.data.<filename>`:
- 
-```liquid
-{% for job in site.data.resume.experience %}
-  <h3>{{ job.role }} @ {{ job.company }}</h3>
-  <p>{{ job.start }} – {{ job.end | default: "Present" }}</p>
-{% endfor %}
-```
- 
-### Useful commands
- 
-| Command | What it does |
-|---|---|
-| `bundle exec jekyll serve` | Run the dev server on port 4000 |
-| `bundle exec jekyll serve --drafts` | Also render posts in `_drafts/` |
-| `bundle exec jekyll build` | Build the production site into `_site/` |
-| `JEKYLL_ENV=production bundle exec jekyll build` | Build with production settings (analytics, minification) |
-| `bundle exec htmlproofer ./_site --disable-external` | Check internal links and images |
-| `bundle update` | Update gems |
- 
----
- 
-## Deploying with GitHub Pages
- 
-The site is built and deployed by **GitHub Actions**. This allows any theme or plugin, unlike the classic Pages builder.
- 
-### One-time setup
- 
-1. Push the repository to GitHub.
-   - Name it **`kajalRajukale.github.io`** to serve the site at `https://kajalRajukale.github.io/`.
-   - Any other name serves it at `https://kajalRajukale.github.io/<repo-name>/`. In that case, set `baseurl: "/<repo-name>"` in `_config.yml`.
-2. On GitHub, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
-3. Push to `main`. The `pages.yml` workflow builds and deploys the site.
-4. Check progress under the **Actions** tab. The live URL appears in the deploy job summary.
-### Deployment workflow
- 
-```text
-git push main ──► Actions: pages.yml ──► jekyll build ──► upload artifact ──► deploy to Pages
-```
- 
-### Custom domain (optional)
- 
-1. Add a file named `CNAME` to the repo root containing your domain, e.g. `cv.example.com`.
-2. At your DNS provider, create a `CNAME` record pointing to `kajalRajukale.github.io`.
-3. Under **Settings → Pages**, enter the domain and enable **Enforce HTTPS**.
----
- 
-## Editing Content
- 
-Most changes don't require touching HTML at all.
- 
-### Update the resume
- 
-Edit `_data/resume.yml`:
- 
-```yaml
-profile:
-  name: Kajal Rajukale
-  title: Data Scientist & AI Developer
-  tagline: Turning data into decisions
-  location: TODO
-  email: TODO
-  github: kajalRajukale
-  linkedin: TODO
- 
-experience:
-  - role: Data Scientist
-    company: Example Corp
-    start: 2024-01
-    end:            # leave empty for "Present"
-    highlights:
-      - Built an NLP pipeline that reduced manual review by 40 %
-      - Deployed ML models with FastAPI and Docker
-```
- 
-Search for `TODO` in the repository to find all placeholders that still need real values:
- 
-```bash
-grep -rn "TODO" _data/ _projects/ *.md
-```
- 
-### Update skills
- 
-Edit `_data/skills.yml`:
- 
-```yaml
-- group: Machine Learning
-  items:
-    - { name: scikit-learn, level: 90 }
-    - { name: PyTorch,      level: 75 }
-```
- 
-### Change the navigation
- 
-Edit `_data/navigation.yml`:
- 
-```yaml
-- title: Home
-  url: /
-- title: Projects
-  url: /projects/
-- title: Demos
-  url: /demos/
-```
- 
-### Replace the resume PDF
- 
-Overwrite `assets/resume.pdf` and commit it. The download button links to this file.
- 
-### Refresh the project list
- 
-```bash
-gh auth login                       # once
-python scripts/fetch_projects.py    # regenerates _data/projects.yml
-```
- 
-Then review the diff, adjust `featured: true` and the descriptions by hand if needed, and commit.
- 
----
- 
-## Extending the Site
- 
-### Add a new page
- 
-1. Create `talks.md` in the repo root:
+
+Every page starts with front matter. Pages using `layout: page` get a standard heading block:
+
 ```markdown
 ---
 layout: page
 title: Talks
 permalink: /talks/
+eyebrow: "$ ls talks"        # small terminal-style line above the heading
+heading: Talks & workshops   # optional, defaults to title
+lead: One sentence intro.
 ---
- 
-## Upcoming
-- …
 ```
- 
-2. Add it to `_data/navigation.yml`.
-### Add a project manually
- 
-1. Add an entry to `_data/projects.yml`:
-```yaml
-- name: my-new-project
-  title: My New Project
-  pitch: One-line description
-  topics: [python, ai]
-  url: https://github.com/kajalRajukale/my-new-project
-  demo: vhs/my-new-project.webm
-  featured: false
-```
- 
-2. Optionally create a detail page `_projects/my-new-project.md`:
-```markdown
----
-layout: project
-title: My New Project
-repo: kajalRajukale/my-new-project
-video: /assets/vhs/my-new-project.webm
----
- 
-## Problem
-## Approach
-## Results
-```
- 
-### Add a reusable component
- 
-1. Create `_includes/badge.html`:
+
+Data in `_data/` is available as `site.data.<filename>`:
+
 ```liquid
-<span class="badge badge--{{ include.type | default: 'default' }}">{{ include.text }}</span>
+{% raw %}{% for t in site.data.resume.timeline %}
+  <h3>{{ t.year }}: {{ t.title }}</h3>
+{% endfor %}{% endraw %}
 ```
- 
-2. Use it anywhere:
-```liquid
-{% include badge.html text="New" type="accent" %}
-```
- 
-### Add styles
- 
-- Add a partial such as `_sass/_talks.scss`.
-- Import it in `assets/css/main.scss`: `@import "talks";`
-- Change colors and fonts centrally in `_sass/_variables.scss`.
-### Add animations
- 
-Add a `data-aos` attribute to any element:
- 
-```html
-<div class="card" data-aos="fade-up" data-aos-delay="100">…</div>
-```
- 
-Animations are disabled automatically for users who have `prefers-reduced-motion` turned on.
- 
-### Add a blog (optional)
- 
-Create a `_posts/` folder with files named `YYYY-MM-DD-title.md`, add a `blog.md` page that lists `site.posts`, and add it to the navigation.
- 
+
 ---
- 
-## Configuration
- 
-Global settings live in `_config.yml`:
- 
-```yaml
-title: Kajal Rajukale
-description: Data Science & AI Portfolio
-url: "https://kajalRajukale.github.io"   # no trailing slash
-baseurl: ""                              # "/repo-name" for project sites
-author:
-  name: Kajal Rajukale
-  github: kajalRajukale
- 
-# Feature switches
-theme_mode: auto          # auto | dark | light
-animations: true
-show_github_stats: true
-contact_form: formspree   # formspree | none
-formspree_id: TODO
- 
-# Collections
-collections:
-  projects:
-    output: true
-    permalink: /projects/:name/
- 
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-feed
- 
-exclude:
-  - vhs/
-  - scripts/
-  - README.md
-  - Gemfile.lock
-```
- 
-| Setting | Effect |
-|---|---|
-| `url` / `baseurl` | Must match the deployment URL, otherwise CSS and links break |
-| `theme_mode` | Default color scheme; visitors can still toggle it |
-| `animations` | Turns all scroll and hero animations on or off |
-| `collections.projects` | Generates one page per file in `_projects/` |
-| `exclude` | Files and folders that are not published |
- 
----
- 
-## Terminal Videos with VHS
- 
-[VHS](https://github.com/charmbracelet/vhs) records terminal sessions from simple scripts.
- 
-### Create a tape
- 
-`vhs/my-new-project.tape`:
- 
+
+## Deploying with GitHub Pages
+
+The site is built and deployed by **GitHub Actions** (`.github/workflows/pages.yml`), not the classic Pages builder.
+
+### One-time setup (repository owner)
+
+1. On GitHub, open **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+2. For the weekly refresh PRs: **Settings → Actions → General → Workflow permissions** → enable
+   **Allow GitHub Actions to create and approve pull requests**.
+3. Push to `main`. Progress shows in the **Actions** tab; the live URL appears in the deploy job summary.
+
+### Deployment workflow
+
 ```text
-Output assets/vhs/my-new-project.webm
-Output assets/vhs/my-new-project.gif
- 
-Set Theme "Catppuccin Mocha"
-Set FontSize 18
-Set Width 1200
-Set Height 600
-Set TypingSpeed 50ms
-Set Padding 20
- 
-Type "git clone https://github.com/kajalRajukale/my-new-project && cd my-new-project"
+git push main ──► pages.yml: jekyll build ──► htmlproofer ──► upload artifact ──► deploy to Pages
+push vhs/*.tape ──► vhs.yml: render videos ──► commit assets/vhs ──► triggers pages.yml
+Monday 06:00 UTC ──► refresh-projects.yml ──► fetch_projects.py ──► pull request
+```
+
+The repository is named `Resume`, so the site lives at `/Resume/`. CI sets `baseurl` automatically;
+`_config.yml` keeps `baseurl: /Resume` for local builds. To use a root URL, rename the repo to
+`kajalRajukale.github.io` and set `baseurl: ""`.
+
+### Custom domain (optional)
+
+1. Add a file named `CNAME` to the repo root containing your domain, e.g. `cv.example.com`.
+2. At your DNS provider, create a `CNAME` record pointing to `kajalrajukale.github.io`.
+3. Under **Settings → Pages**, enter the domain and enable **Enforce HTTPS**. Set `url` and `baseurl: ""`.
+
+---
+
+## Editing Content
+
+Most changes don't require touching HTML. Values starting with `TODO` are **hidden on the site** until replaced.
+
+```bash
+grep -rn "TODO" _data/ _config.yml      # find every placeholder
+```
+
+| What | File |
+|---|---|
+| Name, title, roles (typing effect), tagline, email, LinkedIn, location | `_data/resume.yml` → `profile` |
+| Summary, focus areas, timeline | `_data/resume.yml` |
+| Experience, education, certifications, languages | `_data/resume.yml` (format shown in comments) |
+| Skills and levels (0–100), logos | `_data/skills.yml` (`icon:` = Devicon path, e.g. `python/python-original`) |
+| Menu | `_data/navigation.yml` |
+| Project texts | `_data/projects.yml` (see below) |
+| Contact form | set `formspree_id` in `_config.yml` |
+
+Example experience entry:
+
+```yaml
+experience:
+  - role: Python Developer Intern
+    company: Example Corp
+    start: 2026-01
+    end:            # leave empty for "Present"
+    highlights:
+      - Built a Django REST API for …
+```
+
+### Replace the resume PDF
+
+`just pdf` prints `/resume/` with headless Chrome into `assets/resume.pdf` using the print stylesheet.
+Re-run it after changing resume data, then commit the PDF. You can also overwrite the file with your own PDF.
+
+---
+
+## Project Discovery & Scoring
+
+```bash
+gh auth login                                  # once
+pip install -r scripts/requirements.txt        # PyYAML
+python scripts/fetch_projects.py               # or: just projects
+```
+
+**Selection:** public, non-fork repos that have a matching topic (`python`, `ai`, `data-science`,
+`machine-learning`, `llm`, …), **or** whose primary language is Python / Jupyter Notebook, **or** whose
+name/description/README mentions AI, LLM, Streamlit, Pandas, etc. The site repo itself (`Resume`) is skipped.
+
+**Extraction:** pitch, features, stack, models, datasets, how-to-run, screenshots, demo link, languages, topics, stars.
+
+**Interest score (0–10):** README quality (0–2), originality (tutorial/learning repos 0.5, else 2),
+complexity by own source files (0–2), demo potential (live demo / UI framework / screenshots, 0–2),
+recency (0–1), stars (0–1), plus focus relevance (+1 AI, +0.5 data science). Capped at 10.
+The reasoning is stored per project as `score_reason`.
+
+**Manual edits survive a refresh.** Every non-empty field you change in `projects.yml` (title, pitch,
+problem, approach, results, features, `featured`, …) is kept; only GitHub facts (stars, languages, dates,
+score, …) are overwritten. On the very first run the top 5 are marked `featured: true`.
+
+Projects with `score` below `min_score` (in `_config.yml`) are listed compactly under "More repositories"
+and get no detail page. Detail-page stubs in `_projects/` are created only if missing; add Markdown below
+the front matter to show an extra "Overview" section.
+
+---
+
+## Terminal Videos with VHS
+
+Tapes live in `vhs/`. Every tape sources `vhs/_style.tape` so all videos share theme, font, size, typing
+speed, padding and window bar. A tape named like a project's `name` (e.g. `ai_worksheet_generator.tape`)
+is shown automatically on that project's page and on `/demos/`.
+
+```text
+Output assets/vhs/my-project.webm
+Output assets/vhs/my-project.gif
+
+Source vhs/_style.tape
+
+Hide
+Type `export PS1="kajal@portfolio \W \$ "; D="$(mktemp -d)/kajal"; mkdir "$D"; cd "$D"`
 Enter
-Sleep 2s
-Type "pip install -r requirements.txt -q"
+Type "clear"
 Enter
-Sleep 3s
+Show
+Type "git clone -q --depth 1 https://github.com/kajalRajukale/my-project && cd my-project"
+Enter
+Wait@60s /\$ *$/
 Type "python main.py --demo"
 Enter
-Sleep 5s
+Sleep 4s
+Screenshot assets/vhs/my-project.png      # poster image
 ```
- 
-Keep `Theme`, `FontSize`, `Width` and `Height` identical across all tapes so the videos look consistent.
- 
-### Render
- 
-- **Locally:** `vhs vhs/my-new-project.tape`
-- **All tapes:** `for t in vhs/*.tape; do vhs "$t"; done`
-- **In CI:** push a change to `vhs/*.tape`. The `vhs.yml` workflow renders the tapes and commits the videos.
-### Embed
- 
-```liquid
-{% include video.html src="/assets/vhs/my-new-project.webm" poster="/assets/vhs/my-new-project.png" %}
-```
- 
+
+- **Locally:** `just tape my-project` or `just vhs` (needs `vhs`, `ttyd`, `ffmpeg`, `bat`, `tree`)
+- **In CI:** push a change to `vhs/`. `vhs.yml` renders all tapes, commits `assets/vhs/` and triggers a deploy.
+- **Embed anywhere:** `{% raw %}{% include video.html name="my-project" title="My Project" %}{% endraw %}`
+
+Videos are lazy-loaded and only play while visible.
+
 ---
- 
+
+## Extending the Site
+
+- **New page:** create `talks.md` with `layout: page` front matter (see above) and add it to `_data/navigation.yml`.
+- **New project manually:** add an entry to `_data/projects.yml` (copy an existing one; `name` = repo name)
+  and a stub `_projects/<name>.md` with `name:` and `title:` front matter.
+- **Reusable component:** add `_includes/badge.html`, use it with `{% raw %}{% include badge.html text="New" %}{% endraw %}`.
+- **Styles:** colours and fonts are CSS variables at the top of `assets/css/main.css` (`:root` = dark, `[data-theme="light"]` = light).
+- **Animations:** add `class="reveal"` to any element to fade it in on scroll; `class="tilt"` for the 3D hover.
+  Everything is disabled for visitors with `prefers-reduced-motion`, or site-wide with `animations: false`.
+- **Blog:** create `_posts/YYYY-MM-DD-title.md`, add a `blog.md` that lists `site.posts`, link it in the menu.
+  `jekyll-feed` already publishes `/feed.xml`.
+
+---
+
+## Configuration
+
+| Setting in `_config.yml` | Effect |
+|---|---|
+| `url` / `baseurl` | Must match the deployment URL, otherwise CSS and links break (CI sets `baseurl`) |
+| `image` | Open Graph / social preview image (the intro terminal screenshot) |
+| `theme_mode` | Default colour scheme (`dark`, `light`, `auto`); visitors can toggle, choice is saved |
+| `animations` | `false` turns off all scroll and hero animations |
+| `min_score` | Minimum interest score for a project card / detail page |
+| `formspree_id` | Formspree form id; empty = no contact form |
+| `collections.projects` | Generates `/projects/<name>/` from `_projects/` |
+| `exclude` | Files and folders that are not published |
+
+SEO: `jekyll-seo-tag` (title, description, Open Graph, Twitter), `jekyll-sitemap`, `jekyll-feed`,
+and a JSON-LD `Person` schema in `_layouts/default.html`.
+
+---
+
 ## Troubleshooting
- 
+
 | Problem | Solution |
 |---|---|
-| CSS missing or broken links on GitHub Pages | Check `url` and `baseurl` in `_config.yml` |
+| CSS missing or broken links | Check `url` / `baseurl`; locally open `/Resume/`, not `/` |
 | Changes to `_config.yml` not visible | Restart `jekyll serve` |
-| `Could not find gem …` | Run `bundle install` |
-| Build works locally but fails in Actions | Check the Ruby version in `pages.yml`; commit `Gemfile.lock` |
-| Site not updating after a push | Check the **Actions** tab for failed runs; make sure Pages source is set to **GitHub Actions** |
-| VHS video not rendering | Check that the `Output` paths exist and that commands in the tape work without user input |
-| `fetch_projects.py` fails | Run `gh auth status`; you may be hitting API rate limits, so retry later |
- 
+| `Could not find gem …` | `bundle install` |
+| Build works locally but fails in Actions | Commit `Gemfile.lock`; it must include `x86_64-linux` (`bundle lock --add-platform x86_64-linux`) |
+| Site not updating after a push | Check **Actions**; Pages source must be **GitHub Actions** |
+| VHS video not rendering | Commands in the tape must run without input; check `Wait` timeouts and that clone URLs exist |
+| `fetch_projects.py` fails | `gh auth status`; on rate limits retry later |
+| Refresh workflow can't open a PR | Enable "Allow GitHub Actions to create and approve pull requests" |
+
 ---
- 
+
 ## License
- 
+
 Content (texts, resume data, images): © Kajal Rajukale. All rights reserved.
 Site code (layouts, styles, scripts): MIT, unless stated otherwise.

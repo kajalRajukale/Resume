@@ -1,0 +1,54 @@
+---
+layout: default
+---
+{% assign p = site.data.projects | where: "name", page.name | first %}
+{% capture vid %}/assets/vhs/{{ p.name }}.webm{% endcapture %}
+{% assign has_vid = site.static_files | where: "path", vid | size %}
+<article class="project-detail">
+  <div class="page-head">
+    <p class="eyebrow reveal"><a href="{{ '/projects/' | relative_url }}">← projects</a> / {{ p.name }}</p>
+    <h1 class="reveal">{{ p.title }}</h1>
+    {% if p.pitch != "" %}<p class="lead reveal">{{ p.pitch }}</p>{% endif %}
+    <div class="tags reveal">{% for t in p.tags %}<span class="tag tag-{{ t }}">{{ t | replace: '-', ' ' }}</span>{% endfor %}</div>
+    <div class="cta reveal">
+      <a class="btn primary" href="{{ p.url }}">View on GitHub ↗</a>
+      {% if p.demo != "" %}<a class="btn" href="{{ p.demo }}">Live demo ↗</a>{% endif %}
+    </div>
+  </div>
+
+  <dl class="meta reveal">
+    <div><dt>Interest score</dt><dd>{{ p.score }} / 10</dd></div>
+    <div><dt>Updated</dt><dd>{{ p.updated | date: "%b %Y" }}</dd></div>
+    <div><dt>Stars</dt><dd>★ {{ p.stars }}</dd></div>
+    <div><dt>Languages</dt><dd>{{ p.languages | join: ", " }}</dd></div>
+  </dl>
+
+  {% if has_vid > 0 %}
+  <section class="detail-block reveal"><h2>Terminal demo</h2>
+    {% include video.html name=p.name title=p.title %}
+  </section>
+  {% endif %}
+
+  {% assign body = content | strip %}
+  {% if body != "" %}<section class="detail-block prose reveal"><h2>Overview</h2>{{ content }}</section>{% endif %}
+  {% if p.problem != "" %}<section class="detail-block reveal"><h2>Problem</h2><p>{{ p.problem }}</p></section>{% endif %}
+  {% if p.approach != "" %}<section class="detail-block reveal"><h2>Approach</h2><p>{{ p.approach }}</p></section>{% endif %}
+
+  <section class="detail-block reveal"><h2>Stack</h2>
+    <ul class="stack big">{% for s in p.stack %}<li>{{ s }}</li>{% endfor %}{% for m in p.models %}<li class="model">{{ m }}</li>{% endfor %}</ul>
+  </section>
+
+  {% if p.features.size > 0 %}
+  <section class="detail-block reveal"><h2>Features</h2><ul class="checks">{% for f in p.features %}<li>{{ f }}</li>{% endfor %}</ul></section>
+  {% endif %}
+  {% if p.datasets.size > 0 %}
+  <section class="detail-block reveal"><h2>Datasets</h2><ul>{% for d in p.datasets %}<li><code>{{ d }}</code></li>{% endfor %}</ul></section>
+  {% endif %}
+  {% if p.results != "" %}<section class="detail-block reveal"><h2>Results</h2><p>{{ p.results }}</p></section>{% endif %}
+  {% if p.how_to_run != "" %}
+  <section class="detail-block reveal"><h2>How to run</h2><pre class="term"><code>{{ p.how_to_run | xml_escape }}</code></pre></section>
+  {% endif %}
+  {% if p.screenshots.size > 0 %}
+  <section class="detail-block reveal"><h2>Screenshots</h2><div class="shots">{% for s in p.screenshots %}<img src="{{ s }}" alt="Screenshot of {{ p.title }}" loading="lazy">{% endfor %}</div></section>
+  {% endif %}
+</article>

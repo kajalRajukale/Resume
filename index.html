@@ -1,31 +1,36 @@
 ---
 layout: default
 ---
-{% assign prof = site.data.profile %}
-{% assign projects = site.data.projects %}
+{% assign r = site.data.resume %}{% assign p = r.profile %}{% assign gh = site.data.github %}
+{% assign shown = site.data.projects | where_exp: "x", "x.score >= site.min_score" %}
 <section class="hero">
-  <div>
-    <p class="eyebrow reveal">Hello, I'm</p>
-    <h1 class="reveal"><span class="grad">{{ prof.name }}</span></h1>
-    <p class="typed reveal">&gt; <b data-typed='{{ prof.role_lines | jsonify }}'>{{ prof.role_lines[0] }}</b></p>
-    <p class="lead reveal">{{ prof.tagline }}</p>
+  <div class="hero-text parallax" data-depth="0.08">
+    <p class="eyebrow reveal">$ whoami</p>
+    <h1 class="reveal"><span class="grad">{{ p.name }}</span></h1>
+    <p class="typed reveal">&gt; <b data-typed='{{ p.roles | jsonify }}'>{{ p.roles[0] }}</b></p>
+    <p class="lead reveal">{{ p.tagline }}</p>
     <div class="cta reveal">
       <a class="btn primary" href="{{ '/projects/' | relative_url }}">View projects →</a>
-      <a class="btn" href="{{ '/resume/' | relative_url }}">Resume</a>
-      <a class="btn" href="{{ prof.github }}">GitHub ↗</a>
+      <a class="btn" href="{{ '/assets/resume.pdf' | relative_url }}" download>Resume PDF ↓</a>
+      <a class="btn" href="{{ '/contact/' | relative_url }}">Contact</a>
     </div>
   </div>
-  <div class="avatar-wrap float"><img src="{{ prof.avatar }}" alt="Portrait of {{ prof.name }}" width="320" height="320"></div>
+  <div class="hero-art parallax" data-depth="-0.12">
+    <div class="avatar-wrap float"><img src="{{ p.avatar | relative_url }}" alt="Avatar of {{ p.name }}" width="320" height="320" fetchpriority="high"></div>
+  </div>
 </section>
 
-{% assign ai = projects | where_exp: "p", "p.tags contains 'ai'" %}
-{% assign ds = projects | where_exp: "p", "p.tags contains 'data-science'" %}
 <div class="stats">
-  <div class="stat reveal"><strong data-count="46">46</strong><span>Public repositories</span></div>
-  <div class="stat reveal"><strong data-count="{{ ai.size }}">{{ ai.size }}</strong><span>AI projects</span></div>
-  <div class="stat reveal"><strong data-count="{{ ds.size }}">{{ ds.size }}</strong><span>Data-science projects</span></div>
-  <div class="stat reveal"><strong data-count="3">3</strong><span>Years building</span></div>
+  <div class="stat reveal"><strong data-count="{{ gh.public_repos }}">{{ gh.public_repos }}</strong><span>Public repos</span></div>
+  <div class="stat reveal"><strong data-count="{{ site.data.projects.size }}">{{ site.data.projects.size }}</strong><span>Python / AI / data repos</span></div>
+  <div class="stat reveal"><strong data-count="{{ gh.languages.size }}">{{ gh.languages.size }}</strong><span>Languages used</span></div>
+  <div class="stat reveal"><strong data-count="{{ gh.total_stars }}">{{ gh.total_stars }}</strong><span>GitHub stars</span></div>
 </div>
+
+<section>
+  <div class="section-head"><h2 class="reveal">Hello, terminal</h2></div>
+  <div class="reveal">{% include video.html name="intro" title="kajal@portfolio: ~" %}</div>
+</section>
 
 <section>
   <div class="section-head">
@@ -33,16 +38,14 @@ layout: default
     <a class="btn reveal" href="{{ '/projects/' | relative_url }}">All projects →</a>
   </div>
   <div class="grid">
-    {% assign featured = projects | where: "featured", true %}
-    {% for p in featured %}{% include project-card.html p=p %}{% endfor %}
+    {% assign featured = shown | where: "featured", true %}
+    {% for x in featured %}{% include project-card.html p=x %}{% endfor %}
   </div>
 </section>
 
 <section>
-  <div class="section-head"><h2 class="reveal">Skills & tools</h2></div>
-  <div class="skills">
-    {% for s in site.data.skills %}
-    <div class="skill reveal"><h3>{{ s.group }}</h3><ul>{% for i in s.items %}<li>{{ i }}</li>{% endfor %}</ul></div>
-    {% endfor %}
+  <div class="section-head"><h2 class="reveal">Focus areas</h2><a class="btn reveal" href="{{ '/about/' | relative_url }}">About me →</a></div>
+  <div class="focus">
+    {% for f in r.focus %}<div class="focus-card reveal"><span class="focus-icon" aria-hidden="true">{{ f.icon }}</span><h3>{{ f.title }}</h3><p>{{ f.text }}</p></div>{% endfor %}
   </div>
 </section>

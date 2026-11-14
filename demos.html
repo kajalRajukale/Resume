@@ -1,0 +1,19 @@
+---
+layout: page
+title: Terminal demos
+permalink: /demos/
+eyebrow: "$ vhs vhs/*.tape"
+heading: Terminal demos
+lead: Short terminal recordings of my projects, scripted with VHS and re-rendered automatically on every change.
+description: Terminal recordings of Kajal Rajukale's projects.
+---
+{% assign vids = site.static_files | where: "extname", ".webm" %}
+<section class="demo-grid">
+  {% for v in vids %}{% if v.path contains "/assets/vhs/" %}
+  {% assign p = site.data.projects | where: "name", v.basename | first %}{% assign slug = p.name | slugify %}
+  <div class="demo reveal">
+    {% include video.html name=v.basename title=p.title %}
+    <p>{% if p %}<a href="{{ '/projects/' | append: slug | append: '/' | relative_url }}">{{ p.title }} →</a>{% else %}Intro: who I am in one terminal session{% endif %}</p>
+  </div>
+  {% endif %}{% endfor %}
+</section>

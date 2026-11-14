@@ -1,25 +1,40 @@
 ---
-layout: default
+layout: page
 title: Projects
 permalink: /projects/
+eyebrow: "$ ls ~/projects"
+heading: Python, AI & Data projects
+lead: Selected from my GitHub repositories and ranked by an interest score (README, originality, complexity, demo, recency, focus).
 description: Python, AI and data-science projects by Kajal Rajukale.
 ---
-<div class="page-head">
-  <p class="eyebrow reveal">Portfolio</p>
-  <h1 class="reveal">Projects in <span class="grad">Python, AI & Data</span></h1>
-  <p class="lead reveal">Selected from my GitHub repositories. Filter by area:</p>
-  <div class="filters reveal" role="group" aria-label="Filter projects">
-    <button data-filter="all" aria-pressed="true">All</button>
-    <button data-filter="ai" aria-pressed="false">AI</button>
-    <button data-filter="data-science" aria-pressed="false">Data Science</button>
-    <button data-filter="python" aria-pressed="false">Python</button>
+{% assign shown = site.data.projects | where_exp: "x", "x.score >= site.min_score" %}
+{% assign rest = site.data.projects | where_exp: "x", "x.score < site.min_score" %}
+{% assign langs = "" | split: "" %}{% for x in shown %}{% assign langs = langs | concat: x.languages %}{% endfor %}
+{% assign langs = langs | uniq | sort %}
+<div class="toolbar reveal">
+  <div class="filters" role="group" aria-label="Filter by topic">
+    <button type="button" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" data-filter="ai" aria-pressed="false">AI</button>
+    <button type="button" data-filter="data-science" aria-pressed="false">Data Science</button>
+    <button type="button" data-filter="python" aria-pressed="false">Python</button>
   </div>
+  <label class="field"><span class="sr">Language</span>
+    <select id="lang-filter"><option value="">All languages</option>{% for l in langs %}<option>{{ l }}</option>{% endfor %}</select>
+  </label>
+  <label class="field grow"><span class="sr">Search projects</span>
+    <input id="search" type="search" placeholder="Search: gemini, django, streamlit…" autocomplete="off">
+  </label>
 </div>
+<p class="empty" hidden>No project matches. Try another filter.</p>
 <section>
-  <div class="grid">
-    {% assign featured = site.data.projects | where: "featured", true %}
-    {% assign rest = site.data.projects | where_exp: "p", "p.featured != true" | sort: "year" | reverse %}
-    {% assign sorted = featured | concat: rest %}
-    {% for p in sorted %}{% include project-card.html p=p %}{% endfor %}
-  </div>
+  <div class="grid">{% for x in shown %}{% include project-card.html p=x %}{% endfor %}</div>
 </section>
+{% if rest.size > 0 %}
+<section>
+  <div class="section-head"><h2 class="reveal">More repositories</h2></div>
+  <p class="reveal muted">Smaller experiments and tutorial work.</p>
+  <ul class="repo-list reveal">
+    {% for x in rest %}<li><a href="{{ x.url }}">{{ x.title }}</a><span>{{ x.tags | join: " · " }}</span></li>{% endfor %}
+  </ul>
+</section>
+{% endif %}

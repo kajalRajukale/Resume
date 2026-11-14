@@ -1,0 +1,26 @@
+---
+layout: page
+title: Skills
+permalink: /skills/
+eyebrow: "$ pip list --user"
+heading: Skills & tech stack
+lead: Levels are estimated from how often and how deeply each tool appears across my repositories.
+description: Skills and tech stack of Kajal Rajukale.
+---
+<section class="skill-groups">
+  {% for g in site.data.skills %}
+  <div class="skill-group reveal">
+    <h2>{{ g.group }}</h2>
+    {% for s in g.items %}
+    <div class="bar" style="--lvl: {{ s.level }}%">
+      <div class="bar-label">
+        {% if s.icon %}<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/{{ s.icon }}.svg" alt="" width="22" height="22" loading="lazy">
+        {% else %}<span class="glyph" aria-hidden="true">{{ s.name | slice: 0 }}</span>{% endif %}
+        <span>{{ s.name }}</span><span class="pct">{{ s.level }}%</span>
+      </div>
+      <div class="track" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ s.level }}" aria-label="{{ s.name }}"><i></i></div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</section>

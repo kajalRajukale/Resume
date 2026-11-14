@@ -2,39 +2,61 @@
 layout: default
 title: Resume
 permalink: /resume/
-description: Education, skills and project experience of Kajal Rajukale.
+description: Resume of Kajal Rajukale - education, skills and projects.
 ---
-{% assign r = site.data.resume %}
-<div class="page-head">
-  <p class="eyebrow reveal">Curriculum vitae</p>
-  <h1 class="reveal"><span class="grad">{{ site.data.profile.name }}</span></h1>
-  <p class="lead reveal">{{ site.data.profile.tagline }}</p>
-  <div class="cta reveal"><button class="btn print-btn" onclick="window.print()">Print / save as PDF</button></div>
-</div>
+{% assign r = site.data.resume %}{% assign p = r.profile %}
+{% assign featured = site.data.projects | where: "featured", true %}
+<article class="resume">
+  <header class="resume-head">
+    <div>
+      <p class="eyebrow reveal">$ cat resume.txt</p>
+      <h1 class="reveal">{{ p.name }}</h1>
+      <p class="resume-title reveal">{{ p.title }}</p>
+      <p class="contact-line reveal">
+        <a href="https://github.com/{{ p.github }}">github.com/{{ p.github }}</a>
+        {% unless p.email contains "TODO" %} · <a href="mailto:{{ p.email }}">{{ p.email }}</a>{% endunless %}
+        {% unless p.linkedin contains "TODO" %} · <a href="{{ p.linkedin }}">LinkedIn</a>{% endunless %}
+        {% unless p.location contains "TODO" %} · {{ p.location }}{% endunless %}
+        · <span class="print-only">{{ site.url }}{{ site.baseurl }}</span>
+      </p>
+    </div>
+    <div class="cta reveal no-print">
+      <a class="btn primary" href="{{ '/assets/resume.pdf' | relative_url }}" download>Download PDF ↓</a>
+      <button class="btn" type="button" onclick="window.print()">Print</button>
+    </div>
+  </header>
 
-<section>
-  <div class="section-head"><h2 class="reveal">Education</h2></div>
-  <div class="timeline">
+  <section class="r-sec reveal"><h2>Summary</h2><p>{{ r.summary }}</p></section>
+
+  {% if r.experience.size > 0 %}
+  <section class="r-sec reveal"><h2>Experience</h2>
+    {% for j in r.experience %}<div class="r-item"><div class="r-row"><h3>{{ j.role }} · {{ j.company }}</h3><span>{{ j.start }} – {{ j.end | default: "Present" }}</span></div>
+      <ul>{% for h in j.highlights %}<li>{{ h }}</li>{% endfor %}</ul></div>{% endfor %}
+  </section>
+  {% endif %}
+
+  <section class="r-sec reveal"><h2>Selected projects</h2>
+    {% for x in featured %}
+    <div class="r-item"><div class="r-row"><h3>{{ x.title }}</h3><span>{{ x.updated | date: "%Y" }}</span></div>
+      <p>{{ x.pitch }} <em class="muted">{{ x.stack | join: ", " }}</em></p></div>
+    {% endfor %}
+  </section>
+
+  <section class="r-sec reveal"><h2>Education</h2>
     {% for e in r.education %}
-    <div class="tl-item reveal"><span class="when">{{ e.period }}</span><h3>{{ e.title }}</h3><p><em>{{ e.place }}</em> · {{ e.details }}</p></div>
+    <div class="r-item"><div class="r-row"><h3>{{ e.degree }}</h3>{% unless e.start contains "TODO" %}<span>{{ e.start }} – {{ e.end }}</span>{% endunless %}</div>
+      <p>{% unless e.school contains "TODO" %}{{ e.school }}. {% endunless %}{{ e.details }}</p></div>
     {% endfor %}
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="section-head"><h2 class="reveal">Project experience</h2></div>
-  <div class="timeline">
-    {% for t in r.timeline %}
-    <div class="tl-item reveal"><span class="when">{{ t.year }}</span><h3>{{ t.title }}</h3><p>{{ t.text }}</p></div>
-    {% endfor %}
-  </div>
-</section>
+  <section class="r-sec reveal"><h2>Skills</h2>
+    <dl class="r-skills">{% for g in site.data.skills %}<div><dt>{{ g.group }}</dt><dd>{{ g.items | map: "name" | join: " · " }}</dd></div>{% endfor %}</dl>
+  </section>
 
-<section>
-  <div class="section-head"><h2 class="reveal">Skills</h2></div>
-  <div class="skills">
-    {% for s in site.data.skills %}
-    <div class="skill reveal"><h3>{{ s.group }}</h3><ul>{% for i in s.items %}<li>{{ i }}</li>{% endfor %}</ul></div>
-    {% endfor %}
-  </div>
-</section>
+  {% if r.certifications.size > 0 %}
+  <section class="r-sec reveal"><h2>Certifications</h2><ul>{% for c in r.certifications %}<li>{{ c.name }}, {{ c.issuer }} ({{ c.year }})</li>{% endfor %}</ul></section>
+  {% endif %}
+  {% if r.languages.size > 0 %}
+  <section class="r-sec reveal"><h2>Languages</h2><p>{% for l in r.languages %}{{ l.name }} ({{ l.level }}){% unless forloop.last %} · {% endunless %}{% endfor %}</p></section>
+  {% endif %}
+</article>

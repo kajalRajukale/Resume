@@ -1,17 +1,42 @@
 title: Kajal Rajukale
-description: Python developer exploring AI, data apps and the web. Projects built with Django, Flask, Streamlit, Gemini and local LLMs.
-url: https://kajalrajukale.github.io
-baseurl: /Resume
+description: Python developer building AI, data and web apps with Django, Flask, Streamlit, Gemini and local LLMs.
+url: https://kajalrajukale.github.io   # no trailing slash
+baseurl: /Resume                       # CI overrides this with the real Pages path
 lang: en
-
+image: /assets/vhs/intro.png           # Open Graph / social preview
 github_username: kajalRajukale
+author:
+  name: Kajal Rajukale
+  url: https://github.com/kajalRajukale
+
+# Feature switches
+theme_mode: dark          # default when visitor has no saved choice: auto | dark | light
+animations: true
+min_score: 4.5            # projects below this score get no card/detail page (still listed)
+formspree_id: ""          # TODO: fill in (formspree.io form id) to enable the contact form
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope: { type: projects }
+    values: { layout: project }
+  - scope: { path: "" }
+    values: { layout: default }
 
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-feed
 
 exclude:
   - README.md
+  - PROMPT.md
   - Gemfile
   - Gemfile.lock
-  - vendor
+  - justfile
+  - vhs/
+  - scripts/
+  - vendor/
