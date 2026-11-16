@@ -247,49 +247,6 @@
   score: 5.5
   score_reason: readme 0, originality 2, complexity 2, demo 1, recency 0.5, stars 0, relevance 0
   featured: true
-- name: Streamlit_App_SumatiBalwan
-  title: AI Mini App – Quiz & Weather Dashboard
-  pitch: 'Multipage Streamlit app with a quiz and a weather dashboard: maps, charts and voice read-outs.'
-  problem: ''
-  approach: Streamlit multipage navigation. The weather page geocodes a city with geopy, fetches forecast
-    data, charts hourly and 7-day values with Pandas and Matplotlib, shows the location on a Folium map
-    and reads the summary aloud with gTTS.
-  features:
-  - Quiz page
-  - Weather dashboard with hourly and 7-day forecasts
-  - Interactive Folium map
-  - Text-to-speech summary
-  stack:
-  - Folium
-  - Geocoding
-  - Matplotlib
-  - Pandas
-  - Streamlit
-  - Text-to-speech
-  models: []
-  datasets: []
-  results: ''
-  how_to_run: 'pip install -r requirements.txt
-
-    streamlit run app.py'
-  screenshots: []
-  demo: ''
-  url: https://github.com/kajalRajukale/Streamlit_App_SumatiBalwan
-  homepage: ''
-  language: Python
-  languages:
-  - Python
-  topics: []
-  stars: 0
-  forks: 0
-  updated: '2025-11-14'
-  files: 3
-  tags:
-  - data-science
-  - python
-  score: 4.5
-  score_reason: readme 0, originality 2, complexity 0.5, demo 1, recency 0.5, stars 0, relevance 0.5
-  featured: true
 - name: course-llm-with-python
   title: Local LLM Chat with Ollama
   pitch: Streamlit chat app that streams answers from locally hosted LLMs via Ollama.
@@ -406,6 +363,49 @@
   - python
   score: 4.0
   score_reason: readme 0, originality 0.5, complexity 0.5, demo 1, recency 0.5, stars 0, relevance 1.5
+- name: Streamlit_App_SumatiBalwan
+  title: AI Mini App – Quiz & Weather Dashboard
+  pitch: 'Multipage Streamlit app with a quiz and a weather dashboard: maps, charts and voice read-outs.'
+  problem: ''
+  approach: Streamlit multipage navigation. The weather page geocodes a city with geopy, fetches forecast
+    data, charts hourly and 7-day values with Pandas and Matplotlib, shows the location on a Folium map
+    and reads the summary aloud with gTTS.
+  features:
+  - Quiz page
+  - Weather dashboard with hourly and 7-day forecasts
+  - Interactive Folium map
+  - Text-to-speech summary
+  stack:
+  - Folium
+  - Geocoding
+  - Matplotlib
+  - Pandas
+  - Streamlit
+  - Text-to-speech
+  models: []
+  datasets: []
+  results: ''
+  how_to_run: 'pip install -r requirements.txt
+
+    streamlit run app.py'
+  screenshots: []
+  demo: ''
+  url: https://github.com/kajalRajukale/Streamlit_App_SumatiBalwan
+  homepage: ''
+  language: Python
+  languages:
+  - Python
+  topics: []
+  stars: 0
+  forks: 0
+  updated: '2025-11-14'
+  files: 3
+  tags:
+  - data-science
+  - python
+  score: 4.0
+  score_reason: readme 0, originality 2, complexity 0.5, demo 1, recency 0, stars 0, relevance 0.5
+  featured: true
 - name: Streamlit_App_MiniQuizz
   title: Streamlit App MiniQuizz
   pitch: ''
